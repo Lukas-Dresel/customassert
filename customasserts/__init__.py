@@ -1,4 +1,4 @@
-from .on_failure_callback_factory import *
+from . import on_failure_callback_factory
 from .asserter_node import *
 
 
