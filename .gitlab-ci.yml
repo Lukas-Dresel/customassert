@@ -1,0 +1,21 @@
+before_script:
+    - which angr-test && angr-test sync hard
+
+### local
+customassert_debug:
+    script: "python2 customassert/test/test_exceptions.py"
+    tags: [customassert]
+
+customassert_optimized:
+    script: "python2 -O customassert/test/test_exceptions.py"
+    tags: [customassert]
+
+### Deploy stage
+
+build_images:
+    only: ["master"]
+    stage: deploy
+    script:
+    - cgc-build worker
+    - angr-build angr-ci
+    tags: ["docker-builder"]
