@@ -1,7 +1,7 @@
 import sys
 
-import customasserts
-from customasserts import on_failure_callback_factory
+import customassert
+from customassert import on_failure_callback_factory
 
 
 class TestFailureException(Exception):
@@ -50,7 +50,7 @@ class expects_exception(object):
 def test_case_value_error():
     functionNameAsString = sys._getframe().f_code.co_name
     print functionNameAsString
-    asserter = customasserts.get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(on_failure_callback_factory.exception(ValueError))
     # This should now raise a ValueError
     asserter.assert_true(False)
@@ -61,7 +61,7 @@ def test_case_value_error():
 def test_case_assertion_error():
     functionNameAsString = sys._getframe().f_code.co_name
     print functionNameAsString
-    asserter = customasserts.get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(on_failure_callback_factory.exception(AssertionError))
     # This should now raise a AssertionError
     asserter.assert_true(False)
@@ -72,7 +72,7 @@ def test_case_assertion_error():
 def test_case_debug_builtin_assert():
     functionNameAsString = sys._getframe().f_code.co_name
     print functionNameAsString
-    asserter = customasserts.get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(on_failure_callback_factory.builtin_assert())
     asserter.assert_true(False)
     return None # Uninteresting, should not be reached
@@ -81,7 +81,7 @@ def test_case_debug_builtin_assert():
 def test_case_optimized_builtin_assert():
     functionNameAsString = sys._getframe().f_code.co_name
     print functionNameAsString
-    asserter = customasserts.get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(on_failure_callback_factory.builtin_assert())
     asserter.assert_true(False)
     # In this case, the assertion should have been optimized out, we expect to reach here
