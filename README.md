@@ -14,7 +14,7 @@ import customassert
 asserter = customassert.get_asserter(__name__)
 asserter.set_on_failure_callback(customassert.on_failure_callback_factory.exception(ValueError))
 asserter.assert_true(1 == 0, 'What were you thinking??')
-"""
+```
 
 The `customassert.on_failure_callback_factory` has two builtin callbacks you can use,
 `exception(exception_type_to_throw) or builtin_assert()`. 
