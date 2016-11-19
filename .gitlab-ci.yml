@@ -1,9 +1,9 @@
 ### local
 customassert_debug:
-    script: "python2 test/test_exceptions.py"
+    script: "python2 tests/test_exceptions.py"
     tags: [angr]
 
 customassert_optimized:
-    script: "python2 -O test/test_exceptions.py"
+    script: "python2 -O tests/test_exceptions.py"
     tags: [angr]
 
