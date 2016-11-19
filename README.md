@@ -20,5 +20,5 @@ The `customassert.on_failure_callback_factory` has two builtin callbacks you can
 `exception(exception_type_to_throw)` or `builtin_assert()`. 
 
 - The `exception` callback will raise an instance of the passed in exception type on assertion failure. 
-- The 'builtin_assert` callback will behave just like the normal python `assert` statement in that it will raise an `AssertionError` when the interpreter is in debug mode (`__debug__ == True`) and will not
+- The `builtin_assert` callback will behave just like the normal python `assert` statement in that it will raise an `AssertionError` when the interpreter is in debug mode (`__debug__ == True`) and will not
 raise an exception in case the python interpreter is in optimized mode (see `-O` flag of the python interpreter).
