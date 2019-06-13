@@ -17,3 +17,4 @@ def builtin_assert_cb():
         assert False, "args: {}, kwargs: {}".format(args, kwargs)
 
     return _assert
+

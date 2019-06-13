@@ -29,7 +29,7 @@ class expects_exception(object):
         def wrapped(*args, **kwargs):
             try:
                 f(*args, **kwargs)
-                raise ExpectedExceptionNotThrownError(None, None, 
+                raise ExpectedExceptionNotThrownError(None, None,
                         'Test failed. [{}] did not throw expected '
                         'exception [{}]'.format(f, self.expected_exception))
             except BaseException as ex:
@@ -86,7 +86,7 @@ def test_case_optimized_builtin_assert():
     asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(builtin_assert_cb())
     asserter.assert_true(False)
-    # In this case, the assertion should have been optimized out, we expect 
+    # In this case, the assertion should have been optimized out, we expect
     # to reach here. This should match the behavior of the assert statement
     return None
 
@@ -97,3 +97,4 @@ if __name__ == '__main__':
         test_case_debug_builtin_assert()
     else:
         test_case_optimized_builtin_assert()
+

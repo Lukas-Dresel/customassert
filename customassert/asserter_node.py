@@ -55,3 +55,4 @@ class AsserterNode(object):
         return "<AsserterNode {} with known children {}>".format(
                 normal_repr, self._children.keys()
             )
+

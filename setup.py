@@ -5,3 +5,4 @@ setup(
     packages=['customassert'],
     install_requires=[]
 )
+
