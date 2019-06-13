@@ -1,4 +1,4 @@
-def exception(exception_class):
+def exception_cb(exception_class):
     if not issubclass(exception_class, BaseException):
         raise ValueError('exception_class must derive from BaseException but was {} of type {}'.format(exception_class, type(exception_class)))
 
@@ -8,7 +8,7 @@ def exception(exception_class):
     return _raise
 
 
-def builtin_assert():
+def builtin_assert_cb():
     def _assert(*args, **kwargs):
         assert False, "args: {}, kwargs: {}".format(args, kwargs)
 

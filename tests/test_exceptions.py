@@ -1,7 +1,8 @@
 import sys
 
 import customassert
-from customassert import on_failure_callback_factory
+from customassert import get_asserter
+from customassert.callbacks import exception_cb, builtin_assert_cb
 
 
 class TestFailureException(Exception):
@@ -28,17 +29,18 @@ class expects_exception(object):
         def wrapped(*args, **kwargs):
             try:
                 f(*args, **kwargs)
-                raise ExpectedExceptionNotThrownError(None, None, 'Test failed. [{}] did not throw expected '
-                                                                  'exception [{}]'.format(f, self.expected_exception))
+                raise ExpectedExceptionNotThrownError(None, None, 
+                        'Test failed. [{}] did not throw expected '
+                        'exception [{}]'.format(f, self.expected_exception))
             except BaseException as ex:
                 if type(ex) != self.expected_exception:
                     raise UnexpectedExceptionThrownError(ex, sys.exc_info(),
-                                                         'Test failed. [{}] threw exception [{}] of type [{}], '
-                                                         'expected was [{}]'.format(f, ex, type(ex),
-                                                                                    self.expected_exception),
-                                                         )
+                        'Test failed. [{}] threw exception [{}] of type [{}], '
+                        'expected was [{}]'.format(f, ex, type(ex),
+                            self.expected_exception),
+                        )
                 else:
-                    print 'Test succeeded.'
+                    print('Test succeeded.')
                     return True
 
         return wrapped
@@ -49,9 +51,9 @@ class expects_exception(object):
 @expects_exception(ValueError)
 def test_case_value_error():
     functionNameAsString = sys._getframe().f_code.co_name
-    print functionNameAsString
-    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
-    asserter.set_on_failure_callback(on_failure_callback_factory.exception(ValueError))
+    print(functionNameAsString)
+    asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter.set_on_failure_callback(exception_cb(ValueError))
     # This should now raise a ValueError
     asserter.assert_true(False)
     return None # Uninteresting, should not be reached
@@ -60,9 +62,9 @@ def test_case_value_error():
 @expects_exception(AssertionError)
 def test_case_assertion_error():
     functionNameAsString = sys._getframe().f_code.co_name
-    print functionNameAsString
-    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
-    asserter.set_on_failure_callback(on_failure_callback_factory.exception(AssertionError))
+    print(functionNameAsString)
+    asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter.set_on_failure_callback(exception_cb(AssertionError))
     # This should now raise a AssertionError
     asserter.assert_true(False)
     return None # Uninteresting, should not be reached
@@ -71,18 +73,18 @@ def test_case_assertion_error():
 @expects_exception(AssertionError)
 def test_case_debug_builtin_assert():
     functionNameAsString = sys._getframe().f_code.co_name
-    print functionNameAsString
-    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
-    asserter.set_on_failure_callback(on_failure_callback_factory.builtin_assert())
+    print(functionNameAsString)
+    asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter.set_on_failure_callback(builtin_assert_cb())
     asserter.assert_true(False)
     return None # Uninteresting, should not be reached
 
 
 def test_case_optimized_builtin_assert():
     functionNameAsString = sys._getframe().f_code.co_name
-    print functionNameAsString
-    asserter = customassert.get_asserter("{}.{}".format(__name__, functionNameAsString))
-    asserter.set_on_failure_callback(on_failure_callback_factory.builtin_assert())
+    print(functionNameAsString)
+    asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
+    asserter.set_on_failure_callback(builtin_assert_cb())
     asserter.assert_true(False)
     # In this case, the assertion should have been optimized out, we expect to reach here
     # This is to match the behavior of the builtin assert statement
