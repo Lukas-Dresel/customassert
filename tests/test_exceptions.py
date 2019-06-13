@@ -86,8 +86,8 @@ def test_case_optimized_builtin_assert():
     asserter = get_asserter("{}.{}".format(__name__, functionNameAsString))
     asserter.set_on_failure_callback(builtin_assert_cb())
     asserter.assert_true(False)
-    # In this case, the assertion should have been optimized out, we expect to reach here
-    # This is to match the behavior of the builtin assert statement
+    # In this case, the assertion should have been optimized out, we expect 
+    # to reach here. This should match the behavior of the assert statement
     return None
 
 if __name__ == '__main__':

@@ -2,7 +2,9 @@ from . import callbacks
 from .asserter_node import *
 
 
-_root_asserter = AsserterNode(None, on_failure_callback=callbacks.exception_cb(AssertionError))
+_root_asserter = AsserterNode(None, 
+                    on_failure_callback=callbacks.exception_cb(AssertionError)
+                )
 
 
 def get_asserter(asserter_name):

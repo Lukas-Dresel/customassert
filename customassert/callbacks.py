@@ -1,6 +1,10 @@
 def exception_cb(exception_class):
     if not issubclass(exception_class, BaseException):
-        raise ValueError('exception_class must derive from BaseException but was {} of type {}'.format(exception_class, type(exception_class)))
+        raise ValueError(
+                'exception_class must derive from BaseException but was {} of type {}'.format(
+            exception_class, type(exception_class)
+            )
+        )
 
     def _raise(*args, **kwargs):
         raise exception_class(*args, **kwargs)
